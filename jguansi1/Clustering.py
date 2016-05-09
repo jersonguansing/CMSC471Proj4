@@ -45,8 +45,8 @@ def has_converged(mu, oldmu):
 # cluster the data by finding the centers
 def find_centers(X, K):
 	# Initialize to K random centers
-	oldmu = random.sample(X, K)
-	mu = random.sample(X, K)
+	oldmu = random.sample(list(X), K)
+	mu = random.sample(list(X), K)
 	while not has_converged(mu, oldmu):
 		oldmu = mu
 		# Assign all points in X to clusters
@@ -78,8 +78,11 @@ def main(argv):
 		print("Clustering.py <number of clusters> <filename>")
 	else:
 		k = int(argv[1])
+		print("Reading the data file...")
 		X = readFile(argv[2])
+		print("Performing k-means clustering...")
 		data = find_centers(X, k)
+		print("Generating graph...")
 		plotData(data, k, len(X))
 	
 main(sys.argv)
